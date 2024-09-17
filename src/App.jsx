@@ -1,12 +1,15 @@
 import { Canvas } from "@react-three/fiber";
 import { Color } from "three";
 import Scene from "./Scene";
-import { OrbitControls } from "@react-three/drei";
+
 function App() {
   return (
     <>
       <div id="canvas-container" className="fixed top-0 left-0 w-full h-full">
-        <Canvas scene={{ background: new Color("#102020") }}>
+        <Canvas
+          camera={{ position: [0, 0, 20] }}
+          scene={{ background: new Color("#102020") }}
+        >
           <Scene />
         </Canvas>
       </div>
