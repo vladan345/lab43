@@ -7,7 +7,10 @@ import {
 import React, { useRef, Suspense } from "react";
 import { useFrame } from "@react-three/fiber";
 import { easing } from "maath";
-import { DoubleSide } from "three";
+import { DoubleSide, Vector2 } from "three";
+
+import fragment from "./shaders/fragment.frag";
+import vertex from "./shaders/vertex.vert";
 
 export default function Scene() {
   return (
@@ -20,7 +23,6 @@ export default function Scene() {
     </>
   );
 }
-
 function Rig(props) {
   const rig = useRef();
   const scroll = useScroll();
@@ -28,9 +30,10 @@ function Rig(props) {
   useFrame((state, delta) => {
     rig.current.rotation.y = -scroll.offset * (Math.PI * 2); // Rotate contents
     state.events.update(); // Raycasts every frame rather than on pointer-move
+    easing.damp3(rig.current.position, [state.pointer.x * 0.25, 0, 0]);
     easing.damp3(
       state.camera.position,
-      [-state.pointer.x * 0.5, state.pointer.y * 0.25, 4],
+      [0, -state.pointer.y * 0.25, 4],
       0.3,
       delta
     ); // Move camera
@@ -70,14 +73,30 @@ function Carousel({ radius = 3, count = 13 }) {
 }
 
 function VideoMaterial({ url }) {
+  const ref = useRef(null);
+  useFrame(({ pointer, clock }) => {
+    ref.current.uniforms.u_time.value = clock.getElapsedTime();
+    ref.current.uniforms.u_mouse.value = [pointer.x, pointer.y];
+  });
   const texture = useVideoTexture(url, {
     start: false,
     muted: true,
     loop: true,
     preload: "auto",
   });
+  const uniforms = {
+    u_time: { value: 1 },
+    u_resolution: { value: [window.innerWidth, window.innerHeight] },
+    u_mouse: { value: [0, 0] },
+  };
   return (
-    <meshBasicMaterial side={DoubleSide} map={texture} toneMapped={false} />
+    <shaderMaterial
+      side={DoubleSide}
+      uniforms={uniforms}
+      vertexShader={vertex}
+      fragmentShader={fragment}
+      ref={ref}
+    />
   );
 }
 
