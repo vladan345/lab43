@@ -12,7 +12,7 @@ import { DoubleSide } from "three";
 export default function Scene() {
   return (
     <>
-      <ScrollControls infinite pages={6}>
+      <ScrollControls infinite pages={20} damping={0.5}>
         <Rig scale={window.innerWidth < 900 ? 0.6 : 1} />
         <ambientLight args={["#fff", 3]} />
         <directionalLight args={["#fff", 3]} />
@@ -60,7 +60,7 @@ function Carousel({ radius = 3, count = 13 }) {
           >
             <planeGeometry />
             <Suspense fallback={<FallbackMaterial url="/test.jpg" />}>
-              <VideoMaterial url={`/temp${i % 5}.mp4`} />
+              <VideoMaterial url={`/temp${i + 1}.mp4`} />
             </Suspense>
           </mesh>
         );
@@ -71,7 +71,7 @@ function Carousel({ radius = 3, count = 13 }) {
 
 function VideoMaterial({ url }) {
   const texture = useVideoTexture(url, {
-    start: true,
+    start: false,
     muted: true,
     loop: true,
     preload: "auto",
