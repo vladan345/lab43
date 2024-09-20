@@ -1,8 +1,8 @@
-# React + Vite
+# LAB43
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a hub for all experiments made by Square43 Sudio: \
+[https://lab43.cozify.lol](https://lab43.cozify.lol/)
 
-Currently, two official plugins are available:
+### Quick links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Shaders](https://shaders.cozify.lol)
