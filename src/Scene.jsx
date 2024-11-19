@@ -8,7 +8,7 @@ import React, { useRef, Suspense } from "react";
 import { useFrame } from "@react-three/fiber";
 import { easing } from "maath";
 import { DoubleSide, Vector2 } from "three";
-
+import gsap from "gsap";
 import fragment from "./shaders/fragment.frag";
 import vertex from "./shaders/vertex.vert";
 
@@ -51,11 +51,26 @@ function Carousel({ radius = 0.5, count = 3 }) {
    const handleClick = () => {
       window.open("https://cofecofe.vercel.app/", "_blank");
    };
+
+   const handleHover = (e) => {
+      gsap.to(e.object.material.uniforms.uIntensity, {
+         value: 0,
+         duration: 1,
+      });
+   };
+   const handleLeave = (e) => {
+      gsap.to(e.object.material.uniforms.uIntensity, {
+         value: 0.5,
+         duration: 1,
+      });
+   };
    return (
       <group rotation={[0, 0, -0.1]}>
          {Array.from({ length: count }, (_, i) => {
             return (
                <mesh
+                  onPointerEnter={handleHover}
+                  onPointerLeave={handleLeave}
                   onClick={handleClick}
                   key={i}
                   position={[
@@ -66,9 +81,9 @@ function Carousel({ radius = 0.5, count = 3 }) {
                   rotation={[0, (i / count) * Math.PI * 2, 0]}
                >
                   <planeGeometry />
-                  <Suspense fallback={<FallbackMaterial url="/cofe.png" />}>
-                     <VideoMaterial url={`/temp${i + 1}.mp4`} />
-                  </Suspense>
+                  <FallbackMaterial
+                     url={i % 2 == 0 ? "/cofe.png" : "/shaders.png"}
+                  />
                </mesh>
             );
          })}
@@ -76,37 +91,20 @@ function Carousel({ radius = 0.5, count = 3 }) {
    );
 }
 
-function VideoMaterial({ url }) {
-   const ref = useRef(null);
-   useFrame(({ pointer, clock }) => {
-      ref.current.uniforms.u_time.value = clock.getElapsedTime();
-      ref.current.uniforms.u_mouse.value = [pointer.x, pointer.y];
-   });
-   const texture = useVideoTexture(url, {
-      start: false,
-      muted: true,
-      loop: true,
-      preload: "auto",
-   });
-   const uniforms = {
-      u_time: { value: 1 },
-      u_resolution: { value: [window.innerWidth, window.innerHeight] },
-      u_mouse: { value: [0, 0] },
-   };
+function FallbackMaterial({ url }) {
+   const material = useRef(null);
+   const texture = useTexture(url);
+
    return (
       <shaderMaterial
+         ref={material}
          side={DoubleSide}
-         uniforms={uniforms}
-         vertexShader={vertex}
          fragmentShader={fragment}
-         ref={ref}
+         vertexShader={vertex}
+         uniforms={{
+            uTexture: { value: texture },
+            uIntensity: { value: 0.5 },
+         }}
       />
-   );
-}
-
-function FallbackMaterial({ url }) {
-   const texture = useTexture(url);
-   return (
-      <meshBasicMaterial side={DoubleSide} map={texture} toneMapped={false} />
    );
 }

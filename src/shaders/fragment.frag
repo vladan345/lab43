@@ -4,26 +4,32 @@ precision mediump float;
 
 #define PI 3.14159265359
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
 varying vec2 vUv;
 
-float plot(vec2 st, float pct){
-  return  smoothstep( pct-0.02, pct, st.y) -
-          smoothstep( pct, pct+0.02, st.y);
+uniform sampler2D uTexture;
+uniform float uIntensity;
+
+float rand(vec2 n) { 
+	return fract(sin(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+}
+
+float noise(vec2 p){
+	vec2 ip = floor(p);
+	vec2 u = fract(p);
+	u = u*u*(3.0-2.0*u);
+	
+	float res = mix(
+		mix(rand(ip),rand(ip+vec2(1.0,0.0)),u.x),
+		mix(rand(ip+vec2(0.0,1.0)),rand(ip+vec2(1.0,1.0)),u.x),u.y);
+	return res*res;
 }
 
 void main() {
-    // vec2 st = gl_FragCoord.xy/u_resolution;
-    vec2 st = vUv;
-
-float y = sin(st.x + u_time);
-
-    vec3 color = vec3(y);
-
-    float pct = plot(st,y);
-    color = (1.0-pct)*color+pct*vec3(0.0,1.0,0.0);
-
-    gl_FragColor = vec4(color,1.0);
+   float distortion = noise(vUv * 10.0) * 1. * uIntensity;
+   vec2 distortedPosition = fract(
+      vec2(uIntensity*0.5, 0.) +
+      vec2(vUv.x + distortion, vUv.y)
+   );
+   vec4 texture = texture2D(uTexture, distortedPosition);
+   gl_FragColor = texture;
 }
