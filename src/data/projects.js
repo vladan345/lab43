@@ -8,10 +8,13 @@ export const getProjects = () => {
          image: "/shaders.png",
          url: "https://shaders.cozify.lol/",
       },
+      {
+         image: "/gestalt.png",
+         url: "https://gestalt.cozify.lol/",
+      },
    ];
 
    if (cards.length <= 3) {
-      console.log("haha");
       cards = [...cards, ...cards, ...cards];
    }
    if (cards.length < 6 && cards.length > 3) {
