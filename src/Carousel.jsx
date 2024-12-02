@@ -15,14 +15,14 @@ export function Carousel() {
 
    const handleHover = (e) => {
       gsap.to(e.object.material.uniforms.uIntensity, {
-         value: 0,
+         value: 0.5,
          duration: 1,
       });
    };
 
    const handleLeave = (e) => {
       gsap.to(e.object.material.uniforms.uIntensity, {
-         value: 0.5,
+         value: 0,
          duration: 1,
       });
    };
@@ -67,7 +67,7 @@ function FallbackMaterial({ url }) {
          uniforms={{
             ...UniformsLib["fog"],
             uTexture: { value: texture },
-            uIntensity: { value: 0.5 },
+            uIntensity: { value: 0 },
          }}
          fog={true}
       />
