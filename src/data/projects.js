@@ -9,8 +9,8 @@ export const getProjects = () => {
          url: "https://shaders.cozify.lol/",
       },
       {
-         image: "/gestalt.png",
-         url: "https://gestalt.cozify.lol/",
+         image: "/perception.png",
+         url: "https://perception.cozify.lol/",
       },
    ];
 
