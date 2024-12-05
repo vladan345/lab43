@@ -1,11 +1,11 @@
 export const getProjects = () => {
    let cards = [
       {
-         image: "/cofe.png",
+         image: "/coffee.png",
          url: "https://cofecofe.vercel.app/",
       },
       {
-         image: "/shaders.png",
+         image: "/shaders_new.png",
          url: "https://shaders.cozify.lol/",
       },
       {
