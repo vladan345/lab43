@@ -12,6 +12,10 @@ export const getProjects = () => {
          image: "/perception.png",
          url: "https://perception.cozify.lol/",
       },
+      {
+         image: "/canvas.jpeg",
+         url: "https://canvas.square43.com/",
+      },
    ];
 
    if (cards.length <= 3) {
