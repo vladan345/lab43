@@ -8,11 +8,11 @@ export function BlackParticles({
    height = 1, // Size of the height for the bounding box
    depth = 1, // Size of the depth for the bounding box
    positionZ = -1,
-   size = 0.05, // Particle size
+   size = 0.06, // Particle size
    speed = 200,
 }) {
    const mesh = useRef();
-   const texture = useTexture("/circle_01.png");
+   const texture = useTexture("/square.png");
    // GSAP animations for rotation and position
    useEffect(() => {
       if (mesh.current) {
@@ -64,7 +64,7 @@ export function BlackParticles({
             <pointsMaterial
                size={size}
                map={texture}
-               color={"#bad7ff"}
+               color={"#2a2a2a"}
                transparent
                depthWrite={true}
                alphaTest={0.1}
