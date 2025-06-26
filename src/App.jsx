@@ -5,7 +5,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import Header from "./Header";
-import Text from "./Text";
+import { Text } from "./Text";
+import { ProjectHoverProvider } from "../context/ProjectHoverContext";
 function App() {
    const wrap = useRef();
    const background = "#e5e5e5";
@@ -26,7 +27,7 @@ function App() {
       { scope: wrap }
    );
    return (
-      <>
+      <ProjectHoverProvider>
          <Header />
          <div
             id="canvas-container"
@@ -40,9 +41,10 @@ function App() {
                <Scene />
             </Canvas>
          </div>
+         <Text />
          <div
             ref={wrap}
-            className="fixed bottom-[40px] left-1/2 -translate-x-1/2 flex flex-col items-center"
+            className="fixed bottom-[40px] left-1/2 -translate-x-1/2 flex flex-col items-center max-sm:bottom-20"
          >
             <p className="uppercase text-[14px] mb-[5px]">scroll</p>
             <div className="w-[30px] h-[50px] border border-black rounded-lg p-[5px]">
@@ -52,16 +54,15 @@ function App() {
             </div>
          </div>
 
-         <div className="fixed bottom-10 right-10">
+         <div className="fixed bottom-10 right-10 max-sm:bottom-5 max-sm:right-5">
             <a
                href="https://square43.com/lab"
-               className="inline-flex cursor-pointer items-center button font-semibold uppercase justify-center gap-2 whitespace-nowrap  transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none bg-[#ffff00] hover:bg-neutral-900 hover:text-neutral-50 active:bg-neutral-50 active:text-neutral-900 h-16 px-8 py-5"
+               className="inline-flex cursor-pointer items-center button font-semibold uppercase justify-center gap-2 whitespace-nowrap  transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none bg-[#ffff00] hover:bg-neutral-900 hover:text-neutral-50 active:bg-neutral-50 active:text-neutral-900 h-16 px-8 py-5 max-sm:px-4 max-sm:py-2 max-sm:h-auto"
             >
                Back to square43
             </a>
          </div>
-         <Text />
-      </>
+      </ProjectHoverProvider>
    );
 }
 

@@ -17,7 +17,13 @@
       border-color: var(--color-gray-200, currentcolor);
    }
 }
-
+@theme inline {
+   --breakpoint-sm: 615px;
+   --breakpoint-md: 1024px;
+   --breakpoint-lg: 1440px;
+   --breakpoint-xl: 1600px;
+   --breakpoint-2xl: 1920px;
+}
 @layer components {
    /* Typography */
 

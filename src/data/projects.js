@@ -1,18 +1,22 @@
 export const getProjects = () => {
    let cards = [
       {
+         name: "Coffee Cup",
          image: "/coffee.png",
          url: "https://cofecofe.vercel.app/",
       },
       {
+         name: "Shader Lab",
          image: "/shaders_new.png",
          url: "https://shaders.cozify.lol/",
       },
       {
+         name: "Perception Playhouse",
          image: "/perception.png",
          url: "https://perception.cozify.lol/",
       },
       {
+         name: "Canvas Lab",
          image: "/canvas.jpeg",
          url: "https://canvas.square43.com/",
       },

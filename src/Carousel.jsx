@@ -1,30 +1,55 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import { useTexture } from "@react-three/drei";
-import { DoubleSide, UniformsLib } from "three";
+import { DoubleSide, UniformsLib, Vector3 } from "three";
 import gsap from "gsap";
 import fragment from "./shaders/fragment.frag";
 import vertex from "./shaders/vertex.vert";
 import { getProjects } from "./data/projects";
+import { useThree } from "@react-three/fiber";
+import { useProjectHover } from "../context/ProjectHoverContext";
 
 export function Carousel() {
+   const { setIsHovered, setHoveredProject } = useProjectHover();
+   const { camera } = useThree();
    const cards = getProjects();
 
    const handleClick = (url) => {
       window.open(url, "_blank");
    };
 
-   const handleHover = (e) => {
-      gsap.to(e.object.material.uniforms.uIntensity, {
-         value: 0.5,
-         duration: 1,
-      });
+   const handleHover = (e, card) => {
+      const isTopMost = e.intersections[0].object === e.object;
+
+      const mesh = e.object;
+
+      const distance = mesh
+         .getWorldPosition(new Vector3())
+         .distanceTo(camera.position);
+
+      if (distance < 5 && isTopMost) {
+         gsap.to(e.object.material.uniforms.uIntensity, {
+            value: 0.5,
+            duration: 1,
+         });
+         setHoveredProject(card.name);
+         setIsHovered(true);
+      }
    };
 
    const handleLeave = (e) => {
-      gsap.to(e.object.material.uniforms.uIntensity, {
-         value: 0,
-         duration: 1,
-      });
+      const mesh = e.object;
+
+      const distance = mesh
+         .getWorldPosition(new Vector3())
+         .distanceTo(camera.position);
+      if (distance < 5) {
+         gsap.to(e.object.material.uniforms.uIntensity, {
+            value: 0,
+            duration: 1,
+         });
+         setHoveredProject(null);
+         setIsHovered(false);
+      }
    };
 
    return (
@@ -34,7 +59,7 @@ export function Carousel() {
             const radius = cards.length * 0.5;
             return (
                <mesh
-                  onPointerEnter={handleHover}
+                  onPointerEnter={(e) => handleHover(e, card)}
                   onPointerLeave={handleLeave}
                   onClick={() => handleClick(card.url)}
                   key={i}
@@ -55,21 +80,25 @@ export function Carousel() {
 }
 
 function FallbackMaterial({ url }) {
-   const material = useRef(null);
    const texture = useTexture(url);
+
+   const uniforms = useMemo(
+      () => ({
+         ...UniformsLib["fog"],
+         uTexture: { value: texture },
+         uIntensity: { value: 0 },
+      }),
+      [texture]
+   );
 
    return (
       <shaderMaterial
-         ref={material}
          side={DoubleSide}
          fragmentShader={fragment}
          vertexShader={vertex}
-         uniforms={{
-            ...UniformsLib["fog"],
-            uTexture: { value: texture },
-            uIntensity: { value: 0 },
-         }}
+         uniforms={uniforms}
          fog={true}
+         attach="material"
       />
    );
 }

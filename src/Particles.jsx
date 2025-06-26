@@ -51,8 +51,8 @@ export function BlackParticles({
    }, [count, width, height, depth]);
 
    return (
-      <group ref={mesh} position={[0, 0, positionZ]}>
-         <points>
+      <group ref={mesh} position={[0, 0, positionZ]} raycast={() => null}>
+         <points raycast={() => null}>
             <bufferGeometry>
                <bufferAttribute
                   attach="attributes-position"
