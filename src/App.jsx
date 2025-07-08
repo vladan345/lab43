@@ -46,9 +46,8 @@ function App() {
             ref={wrap}
             className="fixed bottom-[40px] left-1/2 -translate-x-1/2 flex flex-col items-center max-sm:bottom-20"
          >
-            <p className="uppercase text-[14px] mb-[5px]">scroll</p>
-            <div className="w-[30px] h-[50px] border border-black rounded-lg p-[5px]">
-               <div className="h-1/2 flex justify-center w-full">
+            <div className="w-[42px] h-[68px] border border-[#909090] rounded-full p-[10px]">
+               <div className="h-1/3 flex justify-center w-full">
                   <div className="w-[8px] bg-[#000] rounded-full scrollbar origin-bottom self-start"></div>
                </div>
             </div>
