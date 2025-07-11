@@ -9,7 +9,7 @@ export default function Scene() {
    return (
       <>
          <ScrollControls infinite pages={10} damping={0.5}>
-            <Rig scale={window.innerWidth < 900 ? 0.6 : 1} />
+            <Rig scale={window.innerWidth < 900 ? 1.2 : 1} />
             <ambientLight args={["#fff", 3]} />
             <BlackParticles count={5000} width={10} height={10} depth={10} />
          </ScrollControls>

@@ -37,7 +37,12 @@ function App() {
                camera={{ position: [0, 0, 20] }}
                scene={{ background: new Color(background) }}
             >
-               <fog attach="fog" color={background} near={2} far={4.5} />
+               <fog
+                  attach="fog"
+                  color={background}
+                  near={window.innerWidth < 900 ? 3 : 2}
+                  far={4.5}
+               />
                <Scene />
             </Canvas>
          </div>

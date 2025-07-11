@@ -56,7 +56,10 @@ export function Carousel() {
       <group rotation={[0, 0, -0.1]}>
          {cards.map((card, i) => {
             const totalCards = cards.length;
-            const radius = cards.length * 0.5;
+            const radius =
+               window.innerWidth < 900
+                  ? cards.length * 0.25
+                  : cards.length * 0.5;
             return (
                <mesh
                   onPointerEnter={(e) => handleHover(e, card)}
