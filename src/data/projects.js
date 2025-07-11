@@ -16,8 +16,8 @@ export const getProjects = () => {
          url: "https://perception.cozify.lol/",
       },
       {
-         name: "Canvas Lab",
-         image: "/canvas.jpeg",
+         name: "Code Art",
+         image: "/canvas.png",
          url: "https://canvas.square43.com/",
       },
    ];
