@@ -1,17 +1,14 @@
-import { useEffect, useRef } from "react";
-import { useProjectHover } from "../context/ProjectHoverContext";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
-import { useGSAP } from "@gsap/react";
-import { getProjects } from "./data/projects";
+"use client";
 
-gsap.registerPlugin(SplitText);
+import { useRef } from "react";
+import { useProjectHover } from "@/context/ProjectHoverContext";
+import { getProjects } from "@/data/projects";
 
 export function Text() {
    const { hoveredProject, isHovered } = useProjectHover();
    const main = useRef(null);
-
    const projects = getProjects();
+
    return (
       <div
          ref={main}
