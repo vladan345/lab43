@@ -28,16 +28,13 @@ export default function Page() {
         height: "0%",
       });
     },
-    { scope: wrap }
+    { scope: wrap },
   );
 
   return (
     <ProjectHoverProvider>
       <Header />
-      <div
-        id="canvas-container"
-        className="fixed top-0 left-0 w-full h-full"
-      >
+      <div id="canvas-container" className="fixed top-0 left-0 w-full h-full">
         <Canvas
           camera={{ position: [0, 0, 20] }}
           scene={{ background: new Color(background) }}
@@ -76,4 +73,3 @@ export default function Page() {
     </ProjectHoverProvider>
   );
 }
-

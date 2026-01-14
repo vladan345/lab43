@@ -8,7 +8,7 @@ export const getProjects = () => {
     {
       name: "Shader Lab",
       image: "/shaders_new.png",
-      url: "https://shaders.cozify.lol/",
+      url: "https://shaders.square43.com/",
     },
     {
       name: "Perception Playhouse",
@@ -19,6 +19,11 @@ export const getProjects = () => {
       name: "Code Art",
       image: "/canvas.png",
       url: "https://canvas.square43.com/",
+    },
+    {
+      name: "Solana",
+      image: "/solana.png",
+      url: "https://lab.square43.com/solana",
     },
   ];
 
@@ -31,4 +36,3 @@ export const getProjects = () => {
 
   return cards;
 };
-
