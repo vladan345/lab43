@@ -9,26 +9,27 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-   *,
-   ::after,
-   ::before,
-   ::backdrop,
-   ::file-selector-button {
-      border-color: var(--color-gray-200, currentcolor);
-   }
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 @theme inline {
-   --breakpoint-sm: 615px;
-   --breakpoint-md: 1024px;
-   --breakpoint-lg: 1440px;
-   --breakpoint-xl: 1600px;
-   --breakpoint-2xl: 1920px;
+  --breakpoint-sm: 615px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1440px;
+  --breakpoint-xl: 1600px;
+  --breakpoint-2xl: 1920px;
+
+  ----default-transition-duration: 2s;
 }
 @layer components {
-   /* Typography */
+  /* Typography */
 
-   .wrapper {
-      @apply mx-auto h-full max-w-480 px-30 max-lg:px-15 max-sm:px-6;
-   }
+  .wrapper {
+    @apply mx-auto h-full max-w-480 px-30 max-lg:px-15 max-sm:px-6;
+  }
 }
-
